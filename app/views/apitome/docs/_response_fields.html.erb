@@ -5,7 +5,7 @@
       <% scopes = params.group_by{|p| p["scope"]}.keys.compact %>
       <% scope_count = if scopes.present?
           c = scopes.select{|s| s.is_a?(Array)}.map{|a| a.count}.max
-          c.zero? ? 1 : c
+          (c.nil? || c.zero?) ? 1 : c
         else
           0
         end
