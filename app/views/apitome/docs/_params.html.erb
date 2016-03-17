@@ -79,23 +79,23 @@
                 <td></td>
               <% end %>
             </tr>
-            <% values.each do |param| %>
-              <tr>
-                <% scope_count.times do |t| %>
-                  <td></td>
+          <% end %>
+          <% values.each do |param| %>
+            <tr>
+              <% scope_count.times do |t| %>
+                <td></td>
+              <% end %>
+              <td class="name" >
+                <%= param['name'] %>
+                <% if param['required'] %>
+                  <span class="label label-danger required"><%= t(:required) %></span>
                 <% end %>
-                <td class="name" >
-                  <%= param['name'] %>
-                  <% if param['required'] %>
-                    <span class="label label-danger required"><%= t(:required) %></span>
-                  <% end %>
-                </td>
-                <td class="description"><%= param['description'] %></td>
-                <% param_extras(values).each do |extra| %>
-                  <td class="extra"><%= param[extra] %></td>
-                <% end %>
-              </tr>
-            <% end %>
+              </td>
+              <td class="description"><%= param['description'] %></td>
+              <% param_extras(values).each do |extra| %>
+                <td class="extra"><%= param[extra] %></td>
+              <% end %>
+            </tr>
           <% end %>
         <% end %>
       <% end %>
