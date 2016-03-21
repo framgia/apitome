@@ -68,9 +68,13 @@
             </tr>
           <% end %>
         <% else %>
-          <% key.drop(1).each_with_index do |scope, index| %>
+          <% @pre_key ||= [] %>
+          <% pre_key = @pre_key.is_a?(Array) ? @pre_key : [@pre_key] %>
+          <% (key - pre_key).each_with_index do |scope, index| %>
             <tr>
-              <td></td>
+              <% (key.count - (key - pre_key).count).times do |time| %>
+                <td></td>
+              <% end %>
               <% index.times do |t| %>
                 <td></td>
               <% end %>
@@ -98,6 +102,7 @@
             </tr>
           <% end %>
         <% end %>
+        <% @pre_key = key %>
       <% end %>
     </table>
   </div>
