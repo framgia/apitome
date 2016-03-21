@@ -58,13 +58,17 @@
             </tr>
           <% end %>
         <% else %>
-          <% key.drop(1).each_with_index do |scope, index| %>
+          <% @pre_key ||= [] %>
+          <% pre_key = @pre_key.is_a?(Array) ? @pre_key : [@pre_key] %>
+          <% (key - pre_key).each_with_index do |scope, index| %>
             <tr>
-              <td></td>
+              <% (key.count - (key - pre_key).count).times do |time| %>
+                <td></td>
+              <% end %>
               <% index.times do |t| %>
                 <td></td>
               <% end %>
-              <td class="name" > <%= scope %> </td>
+              <td class="name" ><%= scope %> </td>
               <% (scope_count + param_extras(params).count).times do |t| %>
                 <td></td>
               <% end %>
@@ -72,10 +76,13 @@
           <% end %>
           <% values.each do |param| %>
             <tr>
-              <% scope_count.times do |t| %>
+              <% key.count.times do |t| %>
                 <td></td>
               <% end %>
               <td class="name" > <%= param['name'] %> </td>
+              <% (scope_count - key.count).times do |t| %>
+                <td></td>
+              <% end %>
               <td class="description"><%= param['description'] %></td>
               <% param_extras(values).each do |extra| %>
                 <td class="extra"><%= param[extra] %></td>
@@ -83,6 +90,7 @@
             </tr>
           <% end %>
         <% end %>
+        <% @pre_key = key %>
       <% end %>
     </table>
   </div>
